@@ -22,3 +22,13 @@ def extract_users():
     user_dataframe = pd.DataFrame(user)
 
     return user_dataframe
+
+def extract_carts():
+    cart_url = f'{BASE_URL}/carts'
+    cart_response = requests.get(cart_url)
+    cart_response.raise_for_status()
+
+    cart = cart_response.json()
+    cart_dataframe = pd.DataFrame(cart)
+
+    return cart_dataframe
