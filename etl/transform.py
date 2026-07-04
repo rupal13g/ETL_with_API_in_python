@@ -16,6 +16,7 @@ def transform_products(product_dataframe):
         'product_id', 'product_name', 'product_price', 'product_description', 'product_category', 'product_image'
     ]]
 
+    product_df['product_id'] = product_df['product_id'].astype(int)
     product_df['product_price'] = product_df['product_price'].astype(float)
 
     return product_df
@@ -40,6 +41,8 @@ def transform_users(user_dataframe):
     user_df = user_df[[
         'user_id', 'username', 'first_name', 'last_name', 'user_email', 'user_password', 'street', 'city', 'zip_code'
     ]]
+
+    user_df['user_id'] = user_df['user_id'].astype(int)
 
     return user_df
 
