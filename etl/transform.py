@@ -9,15 +9,26 @@ def transform_products(product_dataframe):
         'price' : 'product_price',
         'description' : 'product_description',
         'category' : 'product_category',
-        'image' : 'product_image'
+        'image' : 'product_image',
+        'rating.rate': 'product_rating',
+        'rating.count': 'product_rating_count'
     })
 
     product_df = product_df[[
-        'product_id', 'product_name', 'product_price', 'product_description', 'product_category', 'product_image'
+        'product_id',
+        'product_name',
+        'product_price',
+        'product_description',
+        'product_category',
+        'product_image',
+        'product_rating',
+        'product_rating_count'
     ]]
 
     product_df['product_id'] = product_df['product_id'].astype(int)
     product_df['product_price'] = product_df['product_price'].astype(float)
+    product_df['product_rating'] = product_df['product_rating'].astype(float)
+    product_df['product_rating_count'] = product_df['product_rating_count'].astype(int)
 
     return product_df
 
@@ -39,7 +50,15 @@ def transform_users(user_dataframe):
     })
 
     user_df = user_df[[
-        'user_id', 'username', 'first_name', 'last_name', 'user_email', 'user_password', 'street', 'city', 'zip_code'
+        'user_id',
+        'username',
+        'first_name',
+        'last_name',
+        'user_email',
+        'user_password',
+        'street',
+        'city',
+        'zip_code'
     ]]
 
     user_df['user_id'] = user_df['user_id'].astype(int)
@@ -54,7 +73,11 @@ def transform_carts(cart_dataframe):
 
     carts_df["date"] = pd.to_datetime(carts_df["date"])
 
-    carts_df = carts_df[["cart_id", "user_id", "date"]]
+    carts_df = carts_df[[
+        "cart_id",
+        "user_id",
+        "date"
+    ]]
 
     return carts_df
 
