@@ -1,35 +1,35 @@
-CREATE DATABASE FakeStoreDB
+CREATE DATABASE FakeStoreDB;
 
-USE FakeStoreDB
+USE FakeStoreDB;
 
 CREATE TABLE users (
-    user_id INT,
-    email VARCHAR(100),
-    username VARCHAR(50),
-    firstname VARCHAR(50),
-    lastname VARCHAR(50),
-    phone VARCHAR(30)
+    user_id INT NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    firstname VARCHAR(50) NOT NULL,
+    lastname VARCHAR(50) NOT NULL,
+    phone VARCHAR(30) NULL
 );
 
 CREATE TABLE products (
-    product_id INT,
-    title VARCHAR(255),
-    price DECIMAL(10,2),
-    category VARCHAR(100),
-    description VARCHAR(MAX),
-    image VARCHAR(MAX),
-    rating_rate FLOAT,
-    rating_count INT
+    product_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    category VARCHAR(100) NOT NULL,
+    description VARCHAR(MAX) NULL,
+    image VARCHAR(MAX) NULL,
+    rating_rate FLOAT NOT NULL,
+    rating_count INT NOT NULL
 );
 
 CREATE TABLE carts (
-    cart_id INT,
-    user_id INT,
-    date DATE
+    cart_id INT NOT NULL,
+    user_id INT NOT NULL,
+    date DATE NOT NULL
 );
 
 CREATE TABLE cart_items (
-    cart_id INT,
-    product_id INT,
-    quantity INT
+    cart_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL
 );
