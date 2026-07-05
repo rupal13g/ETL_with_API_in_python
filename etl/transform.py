@@ -35,9 +35,11 @@ def transform_products(product_dataframe):
 def transform_users(user_dataframe):
     user_df = user_dataframe.copy()
 
+    # Flattening nested name object
     user_df['first_name'] = user_df['name'].apply(lambda x: x['firstname'])
     user_df['last_name'] = user_df['name'].apply(lambda x: x['lastname'])
 
+    # Flattening address object
     user_df['street'] = user_df['address'].apply(lambda x: x['street'])
     user_df['city'] = user_df['address'].apply(lambda x: x['city'])
     user_df['zip_code'] = user_df['address'].apply(lambda x: x['zipcode'])
@@ -45,8 +47,8 @@ def transform_users(user_dataframe):
     user_df = user_df.rename(columns={
         'id'  : 'user_id',
         'email' : 'user_email',
-        'username' : 'username',
-        'password' : 'user_password'
+        'password' : 'user_password',
+        'phone' : 'phone_number'
     })
 
     user_df = user_df[[
@@ -56,17 +58,20 @@ def transform_users(user_dataframe):
         'last_name',
         'user_email',
         'user_password',
+        'phone_number',
         'street',
         'city',
         'zip_code'
     ]]
 
     user_df['user_id'] = user_df['user_id'].astype(int)
+    user_df['zip_code'] = user_df['zip_code'].astype(str)
 
     return user_df
 
 def transform_carts(cart_dataframe):
-    carts_df = cart_dataframe.rename(columns={
+    carts_df = cart_dataframe.copy()
+    carts_df = carts_df.rename(columns={
         "id": "cart_id",
         "userId": "user_id"
     })
