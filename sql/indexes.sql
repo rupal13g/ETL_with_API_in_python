@@ -9,21 +9,39 @@ Author  : Rupal Gupta
 
 /* PRODUCTS */
 
-IF OBJECT_ID(N'IX_products_category', N'IX') IS NULL
+IF NOT EXISTS
+(
+    SELECT 1
+    FROM sys.indexes
+    WHERE name = 'IX_products_category'
+      AND object_id = OBJECT_ID('dbo.products')
+)
 BEGIN
 	CREATE INDEX IX_products_category
 	ON dbo.products(product_category)
 END;
 GO
 
-IF OBJECT_ID(N'IX_products_name', N'IX') IS NULL
+IF NOT EXISTS
+(
+    SELECT 1
+    FROM sys.indexes
+    WHERE name = 'IX_products_name'
+      AND object_id = OBJECT_ID('dbo.products')
+)
 BEGIN
 	CREATE INDEX IX_products_name
 	ON dbo.products(product_name)
 END;
 GO
 
-IF OBJECT_ID(N'IX_products_price', N'IX') IS NULL
+IF NOT EXISTS
+(
+    SELECT 1
+    FROM sys.indexes
+    WHERE name = 'IX_products_price'
+      AND object_id = OBJECT_ID('dbo.products')
+)
 BEGIN
 	CREATE INDEX IX_products_price
 	ON dbo.products(product_price)
@@ -33,14 +51,26 @@ GO
 
 /* CARTS */
 
-IF OBJECT_ID(N'IX_carts_user', N'IX') IS NULL
+IF NOT EXISTS
+(
+    SELECT 1
+    FROM sys.indexes
+    WHERE name = 'IX_carts_user_id'
+      AND object_id = OBJECT_ID('dbo.carts')
+)
 BEGIN
-	CREATE INDEX IX_carts_user
+	CREATE INDEX IX_carts_user_id
 	ON dbo.carts(user_id)
 END;
 GO
 
-IF OBJECT_ID(N'IX_carts_date', N'IX') IS NULL
+IF NOT EXISTS
+(
+    SELECT 1
+    FROM sys.indexes
+    WHERE name = 'IX_carts_date'
+      AND object_id = OBJECT_ID('dbo.carts')
+)
 BEGIN
 	CREATE INDEX IX_carts_date
 	ON dbo.carts(date)
@@ -50,7 +80,13 @@ GO
 
 /* CART ITEMS */
 
-IF OBJECT_ID(N'IX_cart_items_product', N'IX') IS NULL
+IF NOT EXISTS
+(
+    SELECT 1
+    FROM sys.indexes
+    WHERE name = 'IX_cart_items_product'
+      AND object_id = OBJECT_ID('dbo.cart_items')
+)
 BEGIN
 	CREATE INDEX IX_cart_items_product
 	ON dbo.cart_items(product_id)
