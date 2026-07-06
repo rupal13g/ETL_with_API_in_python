@@ -1,76 +1,144 @@
+/*
+===========================================
+Project : Fake Store ETL
+Database: SQL Server
+Purpose : Add Constraints for FakeStoreDB
+Author  : Rupal Gupta
+===========================================
+*/
+
 /* PRIMARY KEYS */
+IF OBJECT_ID('PK_users', 'PK') IS NULL 
+BEGIN
+	ALTER TABLE dbo.users
+	ADD CONSTRAINT PK_users
+	PRIMARY KEY (user_id)
+END;
+GO
 
-ALTER TABLE users
-ADD CONSTRAINT PK_Users
-PRIMARY KEY (user_id);
+IF OBJECT_ID('PK_products', 'PK') IS NULL 
+BEGIN
+	ALTER TABLE dbo.products
+	ADD CONSTRAINT PK_products
+	PRIMARY KEY (product_id)
+END;
+GO
 
-ALTER TABLE products
-ADD CONSTRAINT PK_Products
-PRIMARY KEY (product_id);
+IF OBJECT_ID('PK_carts', 'PK') IS NULL 
+BEGIN
+	ALTER TABLE dbo.carts
+	ADD CONSTRAINT PK_carts
+	PRIMARY KEY (cart_id)
+END;
+GO
 
-ALTER TABLE carts
-ADD CONSTRAINT PK_Carts
-PRIMARY KEY (cart_id);
-
-ALTER TABLE cart_items
-ADD CONSTRAINT PK_CartItems
-PRIMARY KEY (cart_id, product_id);
+IF OBJECT_ID('PK_cart_items', 'PK') IS NULL 
+BEGIN
+	ALTER TABLE dbo.cart_items
+	ADD CONSTRAINT PK_cart_items
+	PRIMARY KEY (cart_id, product_id)
+END;
+GO
 
 
 /* FOREIGN KEYS */
 
-ALTER TABLE carts
-ADD CONSTRAINT FK_Carts_Users
-FOREIGN KEY (user_id)
-REFERENCES users(user_id);
+IF OBJECT_ID('FK_carts_users', 'F') IS NULL 
+BEGIN
+	ALTER TABLE dbo.carts
+	ADD CONSTRAINT FK_carts_users
+	FOREIGN KEY (user_id)
+	REFERENCES dbo.users(user_id)
+END;
+GO
 
-ALTER TABLE cart_items
-ADD CONSTRAINT FK_CartItems_Carts
-FOREIGN KEY (cart_id)
-REFERENCES carts(cart_id);
+IF OBJECT_ID('FK_cart_items_carts', 'F') IS NULL 
+BEGIN
+	ALTER TABLE dbo.cart_items
+	ADD CONSTRAINT FK_cart_items_carts
+	FOREIGN KEY (cart_id)
+	REFERENCES dbo.carts(cart_id)
+END;
+GO
 
-ALTER TABLE cart_items
-ADD CONSTRAINT FK_CartItems_Products
-FOREIGN KEY (product_id)
-REFERENCES products(product_id);
+IF OBJECT_ID('FK_cart_items_products', 'F') IS NULL 
+BEGIN
+	ALTER TABLE dbo.cart_items
+	ADD CONSTRAINT FK_cart_items_products
+	FOREIGN KEY (product_id)
+	REFERENCES dbo.products(product_id)
+END;
+GO
 
 
 /* UNIQUE CONSTRAINTS */
 
-ALTER TABLE users
-ADD CONSTRAINT UQ_Users_Email
-UNIQUE (email);
+IF OBJECT_ID('UQ_users_email', 'UQ') IS NULL 
+BEGIN
+	ALTER TABLE dbo.users
+	ADD CONSTRAINT UQ_users_email
+	UNIQUE (user_email)
+END;
+GO
 
-ALTER TABLE users
-ADD CONSTRAINT UQ_Users_Username
-UNIQUE (username);
+IF OBJECT_ID('UQ_users_username', 'UQ') IS NULL 
+BEGIN
+	ALTER TABLE dbo.users
+	ADD CONSTRAINT UQ_users_username
+	UNIQUE (username)
+END;
+GO
 
 
 /* CHECK CONSTRAINTS */
 
-ALTER TABLE products
-ADD CONSTRAINT CK_Product_Price
-CHECK (price >= 0);
+IF OBJECT_ID('CK_product_price', 'C') IS NULL 
+BEGIN
+	ALTER TABLE dbo.products
+	ADD CONSTRAINT CK_product_price
+	CHECK (product_price >= 0)
+END;
+GO
 
-ALTER TABLE products
-ADD CONSTRAINT CK_Product_Rating
-CHECK (rating_rate >= 0 AND rating_rate <= 5);
+IF OBJECT_ID('CK_product_rating', 'C') IS NULL 
+BEGIN
+	ALTER TABLE dbo.products
+	ADD CONSTRAINT CK_product_rating
+	CHECK (product_rating >= 0 AND product_rating <= 5)
+END;
+GO
 
-ALTER TABLE products
-ADD CONSTRAINT CK_Product_RatingCount
-CHECK (rating_count >= 0);
+IF OBJECT_ID('CK_product_rating_count', 'C') IS NULL 
+BEGIN
+	ALTER TABLE dbo.products
+	ADD CONSTRAINT CK_product_rating_count
+	CHECK (product_rating_count >= 0)
+END;
+GO
 
-ALTER TABLE cart_items
-ADD CONSTRAINT CK_CartItem_Quantity
-CHECK (quantity > 0);
+IF OBJECT_ID('CK_cart_item_quantity', 'C') IS NULL 
+BEGIN
+	ALTER TABLE dbo.cart_items
+	ADD CONSTRAINT CK_cart_item_quantity
+	CHECK (quantity > 0)
+END;
+GO
 
 
 /* DEFAULT CONSTRAINTS */
 
-ALTER TABLE cart_items
-ADD CONSTRAINT DF_CartItem_Quantity
-DEFAULT 1 FOR quantity;
+IF OBJECT_ID('DF_cart_item_quantity', 'D') IS NULL 
+BEGIN
+	ALTER TABLE dbo.cart_items
+	ADD CONSTRAINT DF_cart_item_quantity
+	DEFAULT 1 FOR quantity
+END;
+GO
 
-ALTER TABLE carts
-ADD CONSTRAINT DF_Cart_Date
-DEFAULT GETDATE() FOR date;
+IF OBJECT_ID('DF_cart_date', 'D') IS NULL 
+BEGIN
+	ALTER TABLE dbo.carts
+	ADD CONSTRAINT DF_cart_date
+	DEFAULT GETDATE() FOR date
+END;
+GO
