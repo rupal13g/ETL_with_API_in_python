@@ -23,7 +23,7 @@ BEGIN
         username VARCHAR(50) NOT NULL,
         first_name VARCHAR(50) NOT NULL,
         last_name VARCHAR(50) NOT NULL,
-        email VARCHAR(100) NOT NULL,
+        user_email VARCHAR(100) NOT NULL,
         user_password VARCHAR(20) NOT NULL,
         phone_number VARCHAR(20) NULL,
         street VARCHAR(200) NOT NULL,
@@ -65,5 +65,5 @@ BEGIN
         product_id INT NOT NULL,
         quantity INT NOT NULL
     )
-END
+END;
 GO
