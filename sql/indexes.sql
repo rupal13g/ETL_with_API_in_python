@@ -1,37 +1,58 @@
-/* USERS */
-
-CREATE INDEX IX_Users_Email
-ON users(email);
-
-CREATE INDEX IX_Users_Username
-ON users(username);
-
+/*
+===========================================
+Project : Fake Store ETL
+Database: SQL Server
+Purpose : Add Indexes for FakeStoreDB
+Author  : Rupal Gupta
+===========================================
+*/
 
 /* PRODUCTS */
 
-CREATE INDEX IX_Products_Category
-ON products(category);
+IF OBJECT_ID(N'IX_products_category', N'IX') IS NULL
+BEGIN
+	CREATE INDEX IX_products_category
+	ON dbo.products(product_category)
+END;
+GO
 
-CREATE INDEX IX_Products_Title
-ON products(title);
+IF OBJECT_ID(N'IX_products_name', N'IX') IS NULL
+BEGIN
+	CREATE INDEX IX_products_name
+	ON dbo.products(product_name)
+END;
+GO
 
-CREATE INDEX IX_Products_Price
-ON products(price);
+IF OBJECT_ID(N'IX_products_price', N'IX') IS NULL
+BEGIN
+	CREATE INDEX IX_products_price
+	ON dbo.products(product_price)
+END;
+GO
 
 
 /* CARTS */
 
-CREATE INDEX IX_Carts_User
-ON carts(user_id);
+IF OBJECT_ID(N'IX_carts_user', N'IX') IS NULL
+BEGIN
+	CREATE INDEX IX_carts_user
+	ON dbo.carts(user_id)
+END;
+GO
 
-CREATE INDEX IX_Carts_Date
-ON carts(date);
+IF OBJECT_ID(N'IX_carts_date', N'IX') IS NULL
+BEGIN
+	CREATE INDEX IX_carts_date
+	ON dbo.carts(date)
+END;
+GO
 
 
 /* CART ITEMS */
 
-CREATE INDEX IX_CartItems_Product
-ON cart_items(product_id);
-
-CREATE INDEX IX_CartItems_Quantity
-ON cart_items(quantity);
+IF OBJECT_ID(N'IX_cart_items_product', N'IX') IS NULL
+BEGIN
+	CREATE INDEX IX_cart_items_product
+	ON dbo.cart_items(product_id)
+END;
+GO
