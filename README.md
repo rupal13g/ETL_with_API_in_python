@@ -150,7 +150,7 @@ Fake_Store_API_ETL_Pipeline/
 ### SQL Server Tables
 
 ![Table Users](screenshots/users_table.png)
-![Table Products](screenshots/product_table.png)
+![Table Products](screenshots/products_table.png)
 
 ### Database Tables
 
