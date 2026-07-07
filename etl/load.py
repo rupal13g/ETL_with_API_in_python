@@ -29,6 +29,7 @@ def get_engine():
         f"mssql+pyodbc://@{server}/{database}"
         f"?driver={driver.replace(' ', '+')}"
         "&trusted_connection=yes"
+        "&TrustServerCertificate=yes"
     )
 
     engine = create_engine(

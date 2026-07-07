@@ -37,7 +37,7 @@ def extract_users():
     users = user_response.json()
     users_dataframe = pd.DataFrame(users)
     logging.info(
-        f"Extracted {len(users_dataframe)} products."
+        f"Extracted {len(users_dataframe)} users."
     )
 
     return users_dataframe
@@ -56,7 +56,7 @@ def extract_carts():
     carts = cart_response.json()
     carts_dataframe = pd.DataFrame(carts)
     logging.info(
-        f"Extracted {len(carts_dataframe)} products."
+        f"Extracted {len(carts_dataframe)} carts."
     )
 
     return carts_dataframe
