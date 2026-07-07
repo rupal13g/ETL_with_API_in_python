@@ -1,5 +1,24 @@
-ETL/notes.txt
-.vscode/
+# Virtual environments
+.venv/
+venv/
+
+# Environment variables
 .env
+
+# Python
+__pycache__/
+*.py[cod]
+
+# VS Code
+.vscode/
+
+# Operating System
+.DS_Store
+Thumbs.db
+
+# My notes
+etl/notes.txt
+
+# Will remove later
 requirements.txt
 README.md
