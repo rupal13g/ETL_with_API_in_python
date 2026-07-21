@@ -15,7 +15,7 @@ def get_engine():
     """Create and validate a SQLAlchemy engine for SQL Server."""
 
     server = os.getenv("DB_SERVER")
-    database = os.getenv("DB_DATABASE")
+    database = os.getenv("DB_NAME")
     driver = os.getenv("DB_DRIVER")
 
     required = [server, database, driver]
