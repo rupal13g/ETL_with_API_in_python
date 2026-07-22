@@ -1,0 +1,42 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver-container
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${PORT}:${PORT}"
+    restart: always
+    volumes:
+      - sqlserverdata:/var/opt/mssql
+    networks:
+      - etl_network
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost", "-U", "${DB_USER}", "-P", "${DB_PASSWORD}", "-Q", "SELECT 1", "-C"]
+      interval: 10s
+      timeout: 30s
+      retries: 20
+      start_period: 50s
+  etl:
+    build: .
+    container_name: etl-container
+    restart: no
+    environment:
+      - DB_DRIVER=${DB_DRIVER}
+      - DB_SERVER=${DB_SERVER}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    networks:
+      - etl_network
+
+volumes:
+  sqlserverdata:
+
+networks:
+  etl_network:
+    driver: bridge

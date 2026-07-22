@@ -17,18 +17,26 @@ def get_engine():
     server = os.getenv("DB_SERVER")
     database = os.getenv("DB_NAME")
     driver = os.getenv("DB_DRIVER")
+    user = os.getenv("DB_USER")
+    password = os.getenv("DB_PASSWORD")
 
-    required = [server, database, driver]
+    required = [server, database, driver, user, password]
 
     if not all(required):
         raise ValueError(
             "Missing one or more required database environment variables."
         )
 
+    # connection_string = (
+    #     f"mssql+pyodbc://@{server}/{database}"
+    #     f"?driver={driver.replace(' ', '+')}"
+    #     "&trusted_connection=yes"
+    #     "&TrustServerCertificate=yes"
+    # )
+
     connection_string = (
-        f"mssql+pyodbc://@{server}/{database}"
+        f"mssql+pyodbc://{user}:{password}@{server}/{database}"
         f"?driver={driver.replace(' ', '+')}"
-        "&trusted_connection=yes"
         "&TrustServerCertificate=yes"
     )
 
