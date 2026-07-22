@@ -27,13 +27,6 @@ def get_engine():
             "Missing one or more required database environment variables."
         )
 
-    # connection_string = (
-    #     f"mssql+pyodbc://@{server}/{database}"
-    #     f"?driver={driver.replace(' ', '+')}"
-    #     "&trusted_connection=yes"
-    #     "&TrustServerCertificate=yes"
-    # )
-
     connection_string = (
         f"mssql+pyodbc://{user}:{password}@{server}/{database}"
         f"?driver={driver.replace(' ', '+')}"
