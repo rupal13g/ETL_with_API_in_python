@@ -7,16 +7,7 @@ Author  : Rupal Gupta
 ===========================================
 */
 
-IF DB_ID('FakeStoreDB') IS NULL
-BEGIN
-    CREATE DATABASE FakeStoreDB;
-END;
-GO
-
-USE FakeStoreDB;
-GO
-
-IF OBJECT_ID('users', 'U') IS NULL
+IF OBJECT_ID('dbo.users', 'U') IS NULL
 BEGIN
     CREATE TABLE dbo.users (
         user_id INT NOT NULL,
@@ -31,9 +22,8 @@ BEGIN
         zip_code VARCHAR(10) NOT NULL
     )
 END;
-GO
 
-IF OBJECT_ID('products', 'U') IS NULL
+IF OBJECT_ID('dbo.products', 'U') IS NULL
 BEGIN
     CREATE TABLE dbo.products (
         product_id INT NOT NULL,
@@ -46,9 +36,8 @@ BEGIN
         product_rating_count INT NOT NULL
     )
 END;
-GO
 
-IF OBJECT_ID('carts', 'U') IS NULL
+IF OBJECT_ID('dbo.carts', 'U') IS NULL
 BEGIN
     CREATE TABLE dbo.carts (
         cart_id INT NOT NULL,
@@ -56,9 +45,8 @@ BEGIN
         date DATE NOT NULL
     )
 END;
-GO
 
-IF OBJECT_ID('cart_items', 'U') IS NULL
+IF OBJECT_ID('dbo.cart_items', 'U') IS NULL
 BEGIN
     CREATE TABLE dbo.cart_items (
         cart_id INT NOT NULL,
@@ -66,4 +54,3 @@ BEGIN
         quantity INT NOT NULL
     )
 END;
-GO

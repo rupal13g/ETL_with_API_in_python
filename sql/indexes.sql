@@ -20,7 +20,6 @@ BEGIN
 	CREATE INDEX IX_products_category
 	ON dbo.products(product_category)
 END;
-GO
 
 IF NOT EXISTS
 (
@@ -33,7 +32,6 @@ BEGIN
 	CREATE INDEX IX_products_name
 	ON dbo.products(product_name)
 END;
-GO
 
 IF NOT EXISTS
 (
@@ -46,7 +44,6 @@ BEGIN
 	CREATE INDEX IX_products_price
 	ON dbo.products(product_price)
 END;
-GO
 
 
 /* CARTS */
@@ -62,7 +59,6 @@ BEGIN
 	CREATE INDEX IX_carts_user_id
 	ON dbo.carts(user_id)
 END;
-GO
 
 IF NOT EXISTS
 (
@@ -75,7 +71,6 @@ BEGIN
 	CREATE INDEX IX_carts_date
 	ON dbo.carts(date)
 END;
-GO
 
 
 /* CART ITEMS */
@@ -91,4 +86,3 @@ BEGIN
 	CREATE INDEX IX_cart_items_product
 	ON dbo.cart_items(product_id)
 END;
-GO

@@ -14,7 +14,6 @@ BEGIN
 	ADD CONSTRAINT PK_users
 	PRIMARY KEY (user_id)
 END;
-GO
 
 IF OBJECT_ID('PK_products', 'PK') IS NULL 
 BEGIN
@@ -22,7 +21,6 @@ BEGIN
 	ADD CONSTRAINT PK_products
 	PRIMARY KEY (product_id)
 END;
-GO
 
 IF OBJECT_ID('PK_carts', 'PK') IS NULL 
 BEGIN
@@ -30,7 +28,6 @@ BEGIN
 	ADD CONSTRAINT PK_carts
 	PRIMARY KEY (cart_id)
 END;
-GO
 
 IF OBJECT_ID('PK_cart_items', 'PK') IS NULL 
 BEGIN
@@ -38,7 +35,6 @@ BEGIN
 	ADD CONSTRAINT PK_cart_items
 	PRIMARY KEY (cart_id, product_id)
 END;
-GO
 
 
 /* FOREIGN KEYS */
@@ -50,7 +46,6 @@ BEGIN
 	FOREIGN KEY (user_id)
 	REFERENCES dbo.users(user_id)
 END;
-GO
 
 IF OBJECT_ID('FK_cart_items_carts', 'F') IS NULL 
 BEGIN
@@ -59,7 +54,6 @@ BEGIN
 	FOREIGN KEY (cart_id)
 	REFERENCES dbo.carts(cart_id)
 END;
-GO
 
 IF OBJECT_ID('FK_cart_items_products', 'F') IS NULL 
 BEGIN
@@ -68,7 +62,6 @@ BEGIN
 	FOREIGN KEY (product_id)
 	REFERENCES dbo.products(product_id)
 END;
-GO
 
 
 /* UNIQUE CONSTRAINTS */
@@ -79,7 +72,6 @@ BEGIN
 	ADD CONSTRAINT UQ_users_email
 	UNIQUE (user_email)
 END;
-GO
 
 IF OBJECT_ID('UQ_users_username', 'UQ') IS NULL 
 BEGIN
@@ -87,7 +79,6 @@ BEGIN
 	ADD CONSTRAINT UQ_users_username
 	UNIQUE (username)
 END;
-GO
 
 
 /* CHECK CONSTRAINTS */
@@ -98,7 +89,6 @@ BEGIN
 	ADD CONSTRAINT CK_product_price
 	CHECK (product_price >= 0)
 END;
-GO
 
 IF OBJECT_ID('CK_product_rating', 'C') IS NULL 
 BEGIN
@@ -106,7 +96,6 @@ BEGIN
 	ADD CONSTRAINT CK_product_rating
 	CHECK (product_rating >= 0 AND product_rating <= 5)
 END;
-GO
 
 IF OBJECT_ID('CK_product_rating_count', 'C') IS NULL 
 BEGIN
@@ -114,7 +103,6 @@ BEGIN
 	ADD CONSTRAINT CK_product_rating_count
 	CHECK (product_rating_count >= 0)
 END;
-GO
 
 IF OBJECT_ID('CK_cart_item_quantity', 'C') IS NULL 
 BEGIN
@@ -122,7 +110,6 @@ BEGIN
 	ADD CONSTRAINT CK_cart_item_quantity
 	CHECK (quantity > 0)
 END;
-GO
 
 
 /* DEFAULT CONSTRAINTS */
@@ -133,7 +120,6 @@ BEGIN
 	ADD CONSTRAINT DF_cart_item_quantity
 	DEFAULT 1 FOR quantity
 END;
-GO
 
 IF OBJECT_ID('DF_cart_date', 'D') IS NULL 
 BEGIN
@@ -141,4 +127,3 @@ BEGIN
 	ADD CONSTRAINT DF_cart_date
 	DEFAULT GETDATE() FOR date
 END;
-GO
