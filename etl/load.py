@@ -65,7 +65,7 @@ def load_dataframe(df, table_name, engine):
         logger.info(
             "Loaded %d rows into %s",
             len(df),
-            table_name,
+            table_name
         )
 
     except Exception:

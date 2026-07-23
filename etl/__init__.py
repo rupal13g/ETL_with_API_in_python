@@ -13,3 +13,6 @@ from .load import (
     get_engine,
     load_dataframe
 )
+from .db_init import (
+    initialize_database
+)
