@@ -9,7 +9,8 @@ from etl import (
     transform_carts,
     transform_cart_items,
     get_engine,
-    load_dataframe
+    load_dataframe,
+    initialize_database
 )
 
 logging.basicConfig(
@@ -22,9 +23,15 @@ logger = logging.getLogger(__name__)
 
 def main():
 
-    engine = get_engine()
+    engine = None
 
     try:
+
+        logger.info("Initialising the database...")
+
+        initialize_database()
+
+        engine = get_engine()
 
         logger.info("Starting ETL pipeline...")
 
@@ -61,7 +68,8 @@ def main():
         raise
     
     finally:
-        engine.dispose()
+        if engine is not None:
+            engine.dispose()
 
 if __name__ == "__main__":
     main()
