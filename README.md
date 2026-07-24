@@ -1,75 +1,102 @@
 # Fake Store API ETL Pipeline
 
-![Python](https://img.shields.io/badge/Python-3.x-blue)
-![SQL Server](https://img.shields.io/badge/SQL_Server-2019+-red)
-![Pandas](https://img.shields.io/badge/Pandas-2.x-green)
-![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.x-orange)
+```markdown
+![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-Data%20Processing-150458?logo=pandas&logoColor=white)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-ORM-D71F00?logo=sqlalchemy&logoColor=white)
+![SQL%20Server](https://img.shields.io/badge/SQL%20Server-2022-CC2927?logo=microsoftsqlserver&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white)
+![Docker%20Compose](https://img.shields.io/badge/Docker%20Compose-Orchestrated-2496ED?logo=docker&logoColor=white)
+![ETL](https://img.shields.io/badge/Project-ETL%20Pipeline-success)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
+```
 
-A Python-based ETL pipeline that extracts data from the Fake Store API, transforms nested JSON into a relational schema, and loads the processed data into Microsoft SQL Server.
+A Dockerized ETL (Extract, Transform, Load) pipeline built with **Python**, **pandas**, and **Microsoft SQL Server** that extracts data from the Fake Store API, transforms it into a normalized relational model, and loads it into SQL Server.
+
+Unlike a simple ETL script, this project includes **automated database provisioning**, **schema deployment**, **constraint management**, and **containerized execution**, making it closely resemble a real-world data engineering workflow.
+
+## Features
+
+* Extracts data from the Fake Store API
+* Transforms nested JSON into a normalized relational schema
+* Loads data into Microsoft SQL Server using SQLAlchemy and pyodbc
+* Automatically creates the target database if it does not exist
+* Deploys tables, constraints, and indexes from SQL scripts
+* Uses idempotent SQL scripts for repeatable deployments
+* Fully containerized using Docker Compose
+* Environment-variable based configuration using `.env`
+* Structured logging throughout the ETL process
+
+---
 
 ## Architecture
 
 ```text
-Fake Store API
-      │
-      ▼
-   Extract
-      │
-      ▼
-  Transform
-      │
-      ▼
-  SQL Server
+        +----------------------+
+        |   Fake Store API     |
+        +----------+-----------+
+                   |
+              Extract JSON
+                   |
+                   v
+     +-----------------------------+
+     |        ETL Container        |
+     | Python • pandas • SQLAlchemy|
+     +--------------+--------------+
+                    |
+    Database Initialization & ETL Pipeline
+                    |
+                    v
+     +-----------------------------+
+     | SQL Server 2022 Container   |
+     |        FakeStoreDB          |
+     +-----------------------------+
 ```
+
 ---
 
-## Features
+## Project Structure
 
-- Extracts data from Fake Store API
-- Transforms nested JSON into relational tables
-- Loads data into Microsoft SQL Server
-- Implements primary keys, foreign keys, indexes and constraints
-- Modular ETL architecture
-- Environment variable configuration
-- Logging and exception handling
-
-This project demonstrates an end-to-end ETL pipeline built using Python and Pandas.
-
-Data is extracted from the Fake Store API, transformed into a normalized relational schema using Pandas, and loaded into Microsoft SQL Server using SQLAlchemy.
-
-The project follows a modular ETL architecture and includes logging, database constraints, indexes, and environment-based configuration.
-
-The pipeline performs the following steps:
-
-1. **Extract**
-   - Fetches data from the Fake Store API.
-   - Retrieves:
-     - Users
-     - Products
-     - Carts
-
-2. **Transform**
-   - Cleans and renames columns.
-   - Converts data types.
-   - Flattens nested JSON structures.
-   - Splits cart data into relational tables.
-
-3. **Load**
-   - Loads the transformed data into Microsoft SQL Server.
-
+```text
+Fake_Store_API_ETL_Pipeline/
+│
+├── etl/
+│   ├── extract.py          # Extract data from the Fake Store API
+│   ├── transform.py        # Transform API responses into relational tables
+│   ├── load.py             # Load data into SQL Server
+│   ├── db_init.py          # Database creation and schema deployment
+│   └── __init__.py
+│
+├── sql/
+│   ├── create_tables.sql   # Table definitions
+│   ├── constraints.sql     # Primary and foreign keys
+│   └── indexes.sql         # Database indexes
+│
+├── screenshots/
+│
+├── .env.example
+├── .gitignore
+├── .dockerignore
+├── docker-compose.yml
+├── Dockerfile
+├── requirements.txt
+├── main.py
+└── README.md
+```
 ---
 
 ## Technologies Used
 
-- Python 3.x
-- Pandas
-- SQLAlchemy
-- Requests
-- Python-dotenv
-- PyODBC
-- Microsoft SQL Server
-- Draw.io (ER Diagram)
+| Category              | Technologies                |
+| --------------------- | -------------------------   |
+| Languages             | Python 3, SQL               |
+| Data Processing       | pandas                      |
+| Database              | Microsoft SQL Server 2022   |
+| ORM / Database Access | SQLAlchemy, pyodbc          |
+| Containerization      | Docker, Docker Compose      |
+| API                   | Fake Store API (RESTful API)|
+| Configuration         | python-dotenv               |
+| ER Diagram            | draw.io                     |
 
 ---
 
@@ -89,72 +116,34 @@ https://fakestoreapi.com/
 
 ## ETL Workflow
 
-```text
-      Fake Store API
-            │
-            │
-            ▼
-Extract Data (JSON Response)
-            │
-            |
-            ▼
-     Transform Data
-    - Clean columns
-    - Rename fields
-    - Normalize nested JSON
-    - Convert data types
-            │
-            |
-            ▼
-    Load into SQL Server
-            │
-            |
-            ▼
- Relational Database Tables
-```
+1. Extract data from the Fake Store API.
+2. Transform nested JSON into normalized relational tables.
+3. Initialize the SQL Server database.
+4. Create the database if it does not already exist.
+5. Execute SQL scripts to deploy:
+   * Tables
+   * Constraints
+   * Indexes
+6. Load transformed data into SQL Server.
+7. Log every stage of the pipeline.
 
 ---
 
-## Project Structure
+## Database Initialization
 
-```text
-Fake_Store_API_ETL_Pipeline/
-│
-├── etl/
-│   ├── extract.py
-│   ├── transform.py
-│   ├── load.py
-│   └── __init__.py
-│
-├── sql/
-│   ├── create_tables.sql
-│   ├── constraints.sql
-│   └── indexes.sql
-│
-├── screenshots/
-│
-├── .env.example
-├── requirements.txt
-├── main.py
-└── README.md
-```
+Before loading any data, the pipeline automatically prepares the SQL Server environment.
 
----
+The initialization process:
 
-## Screenshots
+* Connects to the `master` database.
+* Creates `FakeStoreDB` if it does not already exist.
+* Executes SQL scripts from the `sql/` directory.
+* Deploys tables.
+* Applies primary and foreign key constraints.
+* Creates indexes.
+* Starts the ETL pipeline only after the database schema is ready.
 
-### Successful Pipeline Execution
-
-![Terminal Output](screenshots/terminal_output.png)
-
-### SQL Server Tables
-
-![Table Users](screenshots/users_table.png)
-![Table Products](screenshots/products_table.png)
-
-### Database Tables
-
-![Tables in FakeStoreDB Database in SQL Server](screenshots/db_ssms.png)
+This approach separates **schema management** from **data loading**, making deployments repeatable and easier to maintain.
 
 ---
 
@@ -187,54 +176,109 @@ Fake_Store_API_ETL_Pipeline/
 
 ---
 
-## How to Run
+## Getting Started
 
-1. Clone the repository
-
-```bash
-git clone https://github.com/rupal13g/Fake_Store_API_ETL_Pipeline/
-```
-2. Create a virtual environment
+### 1. Clone the repository
 
 ```bash
-python -m venv .venv
+git clone https://github.com/<your-username>/Fake_Store_API_ETL_Pipeline.git
+
+cd Fake_Store_API_ETL_Pipeline
 ```
 
-3. Activate (in Windows)
+### 2. Create the environment file
 
-```powershell
-.venv\Scripts\activate
-```
-
-4. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-5. Create a `.env` file using `.env.example`.
+Copy:
 
 ```text
-DB_SERVER=
-DB_DATABASE=
-DB_DRIVER=
+.env.example
 ```
 
-6. Run SQL scripts
+to
 
 ```text
-1. create_tables.sql
-
-2. constraints.sql
-
-3. indexes.sql
+.env
 ```
 
-7. Run the pipeline
+Then configure your SQL Server credentials.
+
+---
+
+### 3. Build the containers
 
 ```bash
-python main.py
+docker compose build
 ```
+
+---
+
+### 4. Start the application
+
+```bash
+docker compose up
+```
+
+The ETL container will automatically:
+
+* initialize the database,
+* deploy the schema,
+* load the data,
+* and exit after successful execution.
+
+---
+
+## Example Log Output
+
+```text
+Initialising the database...
+
+Ensuring database FakeStoreDB exists...
+
+Processing database file: sql/create_tables.sql
+
+Successfully applied schema updates.
+
+Processing database file: sql/constraints.sql
+
+Successfully applied schema updates.
+
+Processing database file: sql/indexes.sql
+
+Successfully applied schema updates.
+
+Database deployment pipeline completed successfully.
+
+Starting ETL pipeline...
+
+Loaded 10 rows into users
+
+Loaded 20 rows into products
+
+Loaded 7 rows into carts
+
+Loaded 14 rows into cart_items
+
+ETL pipeline completed successfully.
+```
+
+---
+
+## Screenshots
+
+Screenshots demonstrating the pipeline execution and SQL Server database are available in the `screenshots/` directory.
+
+### Successful Pipeline Execution
+
+![Docker Container Logs Output](screenshots/docker_logs.png)
+
+### SQL Server Tables
+
+![Table Users](screenshots/users_table.png)
+![Table Products](screenshots/products_table.png)
+
+### Database Tables
+
+![Tables in FakeStoreDB Database in SQL Server](screenshots/db_ssms.png)
 
 ---
 
@@ -269,49 +313,40 @@ ORDER BY quantity_sold DESC;
 
 ---
 
-## Logging
-
-```text
-2026-07-07 14:04:11,531 - INFO - Connected to SQL Server database: FakeStoreDB
-2026-07-07 14:04:11,532 - INFO - Starting ETL pipeline...
-2026-07-07 14:04:12,733 - INFO - Extracted 10 users.
-2026-07-07 14:04:13,825 - INFO - Extracted 20 products.
-2026-07-07 14:04:15,541 - INFO - Extracted 7 carts.
-2026-07-07 14:04:15,543 - INFO - Extracted 10 users, 20 products, 7 carts.
-2026-07-07 14:04:15,577 - INFO - Starting data load.
-2026-07-07 14:04:17,176 - INFO - Loaded 10 rows into users
-2026-07-07 14:04:17,279 - INFO - Loaded 20 rows into products
-2026-07-07 14:04:17,444 - INFO - Loaded 7 rows into carts
-2026-07-07 14:04:17,499 - INFO - Loaded 14 rows into cart_items
-2026-07-07 14:04:17,500 - INFO - ETL pipeline completed successfully.
-```
-
----
-
 ## Future Improvements
 
-- Add incremental loading instead of full loads.
-- Implement automated table creation from Python.
-- Add unit tests for transformation functions.
-- Containerize the project using Docker.
-- Orchestrate the pipeline using Apache Airflow.
-- Deploy the pipeline on Azure.
-- Integrate CI/CD using GitHub Actions.
+* Add incremental loading support
+* Schedule the pipeline with Apache Airflow
+* Containerize with production-ready multi-stage Docker builds
+* Add automated tests
+* CI/CD using GitHub Actions
+* Deploy on Microsoft Azure
+* Add data quality validation
+* Introduce configuration for multiple environments (Development, Test, Production)
 
 ---
 
-## Key Learnings
+## What This Project Demonstrates
 
-This project helped me strengthen my understanding of:
+This project demonstrates practical data engineering concepts including:
 
-- Designing modular ETL pipelines
-- Working with REST APIs
-- Transforming nested JSON into relational tables
-- Database schema design
-- SQL Server constraints and indexing
-- SQLAlchemy and Pandas integration
-- Logging and exception handling
-- Environment variable management
+* ETL pipeline development
+* REST API integration
+* Data transformation using pandas
+* SQL Server database design
+* Schema versioning through SQL scripts
+* Database initialization automation
+* Docker containerization
+* Environment-based configuration
+* Structured application logging
+
+---
+
+## License
+
+This project is intended for learning and portfolio purposes.
+
+---
 
 ## Author
 
