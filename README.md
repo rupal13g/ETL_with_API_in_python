@@ -1,6 +1,5 @@
 # Fake Store API ETL Pipeline
 
-```markdown
 ![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)
 ![Pandas](https://img.shields.io/badge/Pandas-Data%20Processing-150458?logo=pandas&logoColor=white)
 ![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-ORM-D71F00?logo=sqlalchemy&logoColor=white)
@@ -9,7 +8,6 @@
 ![Docker%20Compose](https://img.shields.io/badge/Docker%20Compose-Orchestrated-2496ED?logo=docker&logoColor=white)
 ![ETL](https://img.shields.io/badge/Project-ETL%20Pipeline-success)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
-```
 
 A Dockerized ETL (Extract, Transform, Load) pipeline built with **Python**, **pandas**, and **Microsoft SQL Server** that extracts data from the Fake Store API, transforms it into a normalized relational model, and loads it into SQL Server.
 
@@ -44,7 +42,7 @@ Unlike a simple ETL script, this project includes **automated database provision
      | Python • pandas • SQLAlchemy|
      +--------------+--------------+
                     |
-    Database Initialization & ETL Pipeline
+  Database Initialization & ETL Pipeline
                     |
                     v
      +-----------------------------+
@@ -181,7 +179,7 @@ This approach separates **schema management** from **data loading**, making depl
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/Fake_Store_API_ETL_Pipeline.git
+git clone https://github.com/rupal13g/Fake_Store_API_ETL_Pipeline
 
 cd Fake_Store_API_ETL_Pipeline
 ```
@@ -313,19 +311,6 @@ ORDER BY quantity_sold DESC;
 
 ---
 
-## Future Improvements
-
-* Add incremental loading support
-* Schedule the pipeline with Apache Airflow
-* Containerize with production-ready multi-stage Docker builds
-* Add automated tests
-* CI/CD using GitHub Actions
-* Deploy on Microsoft Azure
-* Add data quality validation
-* Introduce configuration for multiple environments (Development, Test, Production)
-
----
-
 ## What This Project Demonstrates
 
 This project demonstrates practical data engineering concepts including:
@@ -339,6 +324,19 @@ This project demonstrates practical data engineering concepts including:
 * Docker containerization
 * Environment-based configuration
 * Structured application logging
+
+---
+
+## Future Improvements
+
+* Implement incremental data loading.
+* Schedule the pipeline using Apache Airflow.
+* Add data quality validation before loading.
+* Introduce unit and integration tests.
+* Automate CI/CD using GitHub Actions.
+* Deploy the pipeline on Microsoft Azure.
+* Replace the source API with cloud object storage (Azure Blob Storage).
+* Add pipeline monitoring and alerting.
 
 ---
 
